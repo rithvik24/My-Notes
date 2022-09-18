@@ -1,11 +1,15 @@
 import React,{useState} from 'react'
 import validator from 'validator'
+import { useDispatch } from 'react-redux'
+import { asyncRegisterUser } from '../../actions/usersActions'
 
 const Register = () => {
     const [ username, setUserName ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ password, setPassword] = useState('')
     const [ errorsObj, setErrorsObj] = useState({})
+
+    const dispatch = useDispatch()
 
     const errors = {}
 
@@ -51,7 +55,7 @@ const Register = () => {
                 email : email,
                 password : password,
             }
-            console.log(formData)
+            dispatch(asyncRegisterUser(formData))
         }else{
             setErrorsObj(errors)
         }
