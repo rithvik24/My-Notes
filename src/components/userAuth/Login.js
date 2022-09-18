@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import validator from 'validator'
 
 const Login = () => {
     const [ email, setEmail ] = useState('')
@@ -10,6 +11,13 @@ const Login = () => {
     const runValidations = () => {
         if(email.length === 0){
             errors.email = 'email cannot be blank'
+        }else if(!validator.isEmail(email)){
+            errors.email = 'inavlid email format'
+        }
+        if(password.length === 0){
+            errors.password = 'password cannot be blank'
+        }else if(password.length < 8){
+            errors.password = 'password should have minimum of 8 characters'
         }
     }
 
@@ -24,11 +32,17 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const formData = {
-            email : email,
-            password : password
+        runValidations()
+        if(Object.keys(errors).length === 0){
+            setErrorsObj({})
+            const formData = {
+                email : email,
+                password : password
+            }
+            console.log(formData)
+        }else{
+            setErrorsObj(errors)
         }
-        console.log(formData)
     }
 
   return (
@@ -36,8 +50,10 @@ const Login = () => {
         <h2> Login To Your Account </h2>
         <form onSubmit={handleSubmit}>
             <input type='text' placeholder='enter email' name='email' value={email} onChange={handleChange}/>
+            { errorsObj.email && <span> <br/> {errorsObj.email} </span> }
             <br/>
             <input type='text' placeholder='enter password' name='password' value={password} onChange={handleChange}/>
+            { errorsObj.password && <span> <br/> {errorsObj.password} </span> }
             <br/>
             <input type='submit' value='Login'/>
         </form>
