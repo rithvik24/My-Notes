@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Route } from 'react-router-dom'
 import Home from './Home'
 import Register from './Register'
+import Login from './Login'
 
 const NavBar = () => {
   
@@ -13,6 +14,7 @@ return (
 
         <Route path='/' component={Home} exact={true}/>        
         <Route path='/register' component={Register}/>        
+        <Route path='/login' component={Login}/>       
     </div>
   )
 }
