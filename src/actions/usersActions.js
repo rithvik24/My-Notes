@@ -38,6 +38,24 @@ export const asyncLoginUser = (formData,handleReset,handleIsLoggedIn) => {
         })
     }
 }
+
+export const asyncLogoutUser = (handleIsLoggedIn) => {
+    return () => {
+        axios.delete('https://dct-user-auth.herokuapp.com/users/logout',{
+            headers : { 'x-auth' : localStorage.getItem('token') }
+        })
+        .then((response) => {
+            const result = response.data
+            alert(result.notice)
+            localStorage.removeItem('token')
+            handleIsLoggedIn()
+        })  
+        .catch((err) => {
+            alert(err.message)
+        })     
+    }
+}
+
 export const setUser = (formData) => {
     return {
         type : 'SET_USER',

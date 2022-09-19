@@ -51,6 +51,7 @@ const Login = (props) => {
             const handleReset = () => {
                 setEmail('')
                 setPassword('')
+                props.history.push('/')
             }
             dispatch(asyncLoginUser(formData,handleReset,handleIsLoggedIn))
         }else{
