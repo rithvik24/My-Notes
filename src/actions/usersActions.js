@@ -19,7 +19,7 @@ export const asyncRegisterUser = (formData,handleReset) => {
     }
 }
 
-export const asyncLoginUser = (formData,handleReset) => {
+export const asyncLoginUser = (formData,handleReset,handleIsLoggedIn) => {
     return (dispatch) => {
         axios.post('https://dct-user-auth.herokuapp.com/users/login',formData)
         .then((response) => {
@@ -29,6 +29,7 @@ export const asyncLoginUser = (formData,handleReset) => {
             }else{
                 alert('successfully logged in')
                 handleReset()
+                handleIsLoggedIn()
                 localStorage.setItem('token',result.token)
             }
         })

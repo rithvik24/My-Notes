@@ -3,7 +3,8 @@ import validator from 'validator'
 import { useDispatch } from 'react-redux'
 import { asyncLoginUser } from '../../actions/usersActions'
 
-const Login = () => {
+const Login = (props) => {
+    const { handleIsLoggedIn } = props
     const [ email, setEmail ] = useState('')
     const [ password, setPassword] = useState('')
     const [ errorsObj , setErrorsObj ] = useState({})
@@ -51,7 +52,7 @@ const Login = () => {
                 setEmail('')
                 setPassword('')
             }
-            dispatch(asyncLoginUser(formData,handleReset))
+            dispatch(asyncLoginUser(formData,handleReset,handleIsLoggedIn))
         }else{
             setErrorsObj(errors)
         }
