@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import validator from 'validator'
+import { useDispatch } from 'react-redux'
+import { asyncLoginUser } from '../../actions/usersActions'
 
 const Login = () => {
     const [ email, setEmail ] = useState('')
@@ -7,6 +9,12 @@ const Login = () => {
     const [ errorsObj , setErrorsObj ] = useState({})
     
     const errors = {}
+    const dispatch = useDispatch()
+
+    const handleCancel = () => {
+        setEmail('')
+        setPassword('')
+    }
 
     const runValidations = () => {
         if(email.length === 0){
@@ -39,7 +47,11 @@ const Login = () => {
                 email : email,
                 password : password
             }
-            console.log(formData)
+            const handleReset = () => {
+                setEmail('')
+                setPassword('')
+            }
+            dispatch(asyncLoginUser(formData,handleReset))
         }else{
             setErrorsObj(errors)
         }
@@ -57,7 +69,7 @@ const Login = () => {
             <br/>
             <input type='submit' value='Login'/>
         </form>
-            <button> cancel </button>
+            <button onClick={handleCancel}> cancel </button>
     </div>
   )
 }
