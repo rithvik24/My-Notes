@@ -6,11 +6,17 @@ import Register from './Register'
 import Login from './Login'
 import { asyncLogoutUser } from '../../actions/usersActions'
 import Account from './Account'
+import NotesApp from '../notesApp/NotesApp'
+import PrivateRoute from '../../configure/PrivateRoute'
 
 const NavBar = (props) => {
   const [ isLoggedIn , setIsLoggedIn ] = useState(false)
 
   const dispatch = useDispatch()
+
+  const handlePush = () => {
+    props.history.push('/')
+  }
 
   const handleIsLoggedIn = () => {
     setIsLoggedIn(!isLoggedIn)
@@ -19,7 +25,7 @@ const NavBar = (props) => {
   const handleLogout = () => {
     const confirm = window.confirm('Are you sure?')
     if(confirm){
-      dispatch(asyncLogoutUser(handleIsLoggedIn))
+      dispatch(asyncLogoutUser(handleIsLoggedIn,handlePush))
     }
   }
 
@@ -36,6 +42,7 @@ return (
           isLoggedIn ? (
             <>
               <Link to='/account'> Account </Link>
+              <Link to='/mynotes'> My Notes </Link>
               <Link to={`${props.location.pathname}`} onClick={handleLogout} > Logout </Link>
             </>
           ) : (
@@ -50,7 +57,8 @@ return (
         <Route path='/login' render = { (props) => {
           return <Login {...props}  handleIsLoggedIn = {handleIsLoggedIn}/>
         } }/>
-        <Route path = '/account' component = {Account}/>       
+        <PrivateRoute path = '/account' component = {Account}/>       
+        <PrivateRoute path = '/mynotes' component = {NotesApp}/>       
     </div>
   )
 }

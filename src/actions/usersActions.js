@@ -1,14 +1,13 @@
-import axios from 'axios'
+import { axios } from "../helpers/axios"
 
 export const asyncRegisterUser = (formData,handleReset) => {
     return (dispatch) => {
-        axios.post('https://dct-user-auth.herokuapp.com/users/register',formData)
+        axios.post('/users/register',formData)
         .then((response) => {
             const result = response.data
             if(result.hasOwnProperty('errors')){
                 alert(result.message)
             }else{
-                dispatch(setUser(result))
                 alert('Successfully registered user')
                 handleReset()
             }
@@ -21,7 +20,7 @@ export const asyncRegisterUser = (formData,handleReset) => {
 
 export const asyncLoginUser = (formData,handleReset,handleIsLoggedIn) => {
     return (dispatch) => {
-        axios.post('https://dct-user-auth.herokuapp.com/users/login',formData)
+        axios.post('/users/login',formData)
         .then((response) => {
             const result = response.data
             if(result.hasOwnProperty('errors')){
@@ -39,9 +38,9 @@ export const asyncLoginUser = (formData,handleReset,handleIsLoggedIn) => {
     }
 }
 
-export const asyncLogoutUser = (handleIsLoggedIn) => {
+export const asyncLogoutUser = (handleIsLoggedIn,handlePush) => {
     return () => {
-        axios.delete('https://dct-user-auth.herokuapp.com/users/logout',{
+        axios.delete('/users/logout',{
             headers : { 'x-auth' : localStorage.getItem('token') }
         })
         .then((response) => {
@@ -49,6 +48,7 @@ export const asyncLogoutUser = (handleIsLoggedIn) => {
             alert(result.notice)
             localStorage.removeItem('token')
             handleIsLoggedIn()
+            handlePush()
         })  
         .catch((err) => {
             alert(err.message)
@@ -56,9 +56,24 @@ export const asyncLogoutUser = (handleIsLoggedIn) => {
     }
 }
 
-export const setUser = (formData) => {
+export const asyncGetUser = () => {
+    return (dispatch) => {
+        axios.get('/users/account',{
+            headers : { 'x-auth' : localStorage.getItem('token') }
+        })
+        .then((response) => {
+            const result = response.data
+            dispatch(getUser(result))
+        })
+        .catch((err) => {
+            alert(err.message)
+        })
+    }
+}
+
+const getUser = (user) => {
     return {
-        type : 'SET_USER',
-        payload : formData
+        type : 'GET_USER',
+        payload : user
     }
 }
