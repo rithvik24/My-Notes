@@ -3,7 +3,7 @@ import validator from 'validator'
 import { useDispatch } from 'react-redux'
 import { asyncRegisterUser } from '../../actions/usersActions'
 
-const Register = () => {
+const Register = (props) => {
     const [ username, setUserName ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ password, setPassword] = useState('')
@@ -55,7 +55,13 @@ const Register = () => {
                 email : email,
                 password : password,
             }
-            dispatch(asyncRegisterUser(formData))
+            const handleReset = () => {
+                setUserName('')
+                setEmail('')
+                setPassword('')
+                props.history.push('/login')
+            }
+            dispatch(asyncRegisterUser(formData,handleReset))
         }else{
             setErrorsObj(errors)
         }

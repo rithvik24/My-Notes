@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const asyncRegisterUser = (formData) => {
+export const asyncRegisterUser = (formData,handleReset) => {
     return (dispatch) => {
         axios.post('https://dct-user-auth.herokuapp.com/users/register',formData)
         .then((response) => {
@@ -9,6 +9,8 @@ export const asyncRegisterUser = (formData) => {
                 alert(result.message)
             }else{
                 dispatch(setUser(result))
+                alert('Successfully registered user')
+                handleReset()
             }
         })
         .catch((error) => {
