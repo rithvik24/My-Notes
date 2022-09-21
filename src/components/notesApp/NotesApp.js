@@ -1,9 +1,12 @@
 import React from 'react'
+import NotesContainer from './NotesContainer'
+import AddNote from './AddNote'
 
 const NotesApp = (props) => {
   return (
     <div>
-        <h2> Notes App </h2>
+        <NotesContainer/>
+        <AddNote/>
     </div>
   )
 }
