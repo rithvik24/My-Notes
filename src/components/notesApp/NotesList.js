@@ -13,22 +13,32 @@ const NotesList = () => {
     const {notes}  = useSelector((state) => {
         return state
     })
-    
+    console.log('NL',notes)
   return (
     <div>
         {
-            notes.data.length === 0 ? (
+            notes.isLoading ? (
                 <>
-                    <p> No notes found </p>
-                    <p> Add your first note</p>
+                    <h3> Loading...</h3>
                 </>
             ) : (
                 <>
-                    <h2> My Notes - {notes.data.length}</h2>
                     {
-                        notes.data.map((note) => {
-                            return <NotesItem key={note._id} note = {note} />
-                        })
+                        notes.data.length === 0 ? (
+                            <>
+                                <p> No notes found </p>
+                                <p> Add your first note</p>
+                            </>
+                        ) : (
+                            <>
+                                <h2> My Notes - {notes.data.length}</h2>
+                                {
+                                    notes.data.map((note) => {
+                                        return <NotesItem key={note._id} note = {note} />
+                                    })
+                                }
+                            </>
+                        )
                     }
                 </>
             )

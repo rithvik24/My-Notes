@@ -64,6 +64,7 @@ export const asyncGetUser = () => {
         .then((response) => {
             const result = response.data
             dispatch(getUser(result))
+            dispatch(isLoading())
         })
         .catch((err) => {
             alert(err.message)
@@ -75,5 +76,11 @@ const getUser = (user) => {
     return {
         type : 'GET_USER',
         payload : user
+    }
+}
+
+const isLoading = () => {
+    return {
+        type : 'IS_LOADING'
     }
 }

@@ -1,5 +1,5 @@
 const notesInitialState = {
-    isLoading : false,
+    isLoading : true,
     data : [],
     errors : false
 }
@@ -25,6 +25,9 @@ const notesReducers = (state = notesInitialState, action) => {
             return { ...state , data : state.data.filter((ele) => {
                 return ele._id !== action.payload._id
             })}
+        }
+        case 'IS_LOADING' : {
+            return { ...state , isLoading : false}
         }
         default : {
             return {...state}

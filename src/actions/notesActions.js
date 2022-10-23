@@ -7,6 +7,7 @@ export const asyncGetNotes = () => {
         })
         .then((response) => {
             const result = response.data
+            dispatch(isLoading())
             dispatch(setNotes(result))
         })
         .catch((err) => {
@@ -103,5 +104,11 @@ export const removeNote = (result) => {
     return {
         type : 'REMOVE_NOTE',
         payload : result
+    }
+}
+
+export const isLoading = () => {
+    return {
+        type : 'IS_LOADING'
     }
 }

@@ -1,12 +1,13 @@
-import React from 'react'
-import NotesList from './NotesList'
+import React from "react";
+import NotesList from "./NotesList";
 
 const NotesContainer = () => {
+  
   return (
     <div>
-        <NotesList/>
+      <NotesList />
     </div>
-  )
-}
+  );
+};
 
-export default NotesContainer
+export default NotesContainer;
