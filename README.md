@@ -2,7 +2,7 @@
 # Pos Billing App
 ## Description
 
-This is simple a personal notes taking app, where a user can keep notes about his/her daily activities related to work, studies or personal life.
+This is a simple personal notes taking app, where a user can keep notes about his/her daily activities related to work, studies or personal life.
 
 
 ## Features
