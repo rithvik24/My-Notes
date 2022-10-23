@@ -1,5 +1,4 @@
-
-# Pos Billing App
+## My Notes Application
 ## Description
 
 This is a simple personal notes taking app, where a user can keep notes about his/her daily activities related to work, studies or personal life.
